@@ -1,8 +1,8 @@
 version: 3
 automerge: true
 projects:
-  - name: ecr/gyanni/ap-northeast-2
-    dir: terraform/ecr/gyanni/ap-northeast-2
+  - name: init/tfplayground
+    dir: terraform/init/tfplayground
     workspace: default
     terraform_version: 1.3.7
     autoplan:
@@ -76,8 +76,8 @@ projects:
     apply_requirements: []
     workflow: id
 
-  - name: ecr/zerone-id/ap-northeast-2
-    dir: terraform/ecr/zerone-id/ap-northeast-2
+  - name: ecr/gyanni/ap-northeast-2
+    dir: terraform/ecr/gyanni/ap-northeast-2
     workspace: default
     terraform_version: 1.7.0
     autoplan:
