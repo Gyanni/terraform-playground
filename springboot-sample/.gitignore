@@ -1,0 +1,9 @@
+.idea
+
+build
+bin
+
+.gradle
+
+.DS_Store
+src/.DS_Store
