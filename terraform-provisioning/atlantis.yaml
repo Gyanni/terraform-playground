@@ -327,12 +327,12 @@ workflows:
       steps:
         - init:
             extra_args: [
-              '-backend-config="role_arn=arn:aws:iam::066346343248:role/atlantis-gyanni-admin"',
+              '-backend-config="role_arn=arn:aws:iam::289574460446:role/atlantis-gyanni-admin"',
               '-upgrade=false'
             ]
         - plan:
             extra_args: [
-              "-var 'assume_role_arn=arn:aws:iam::066346343248:role/atlantis-gyanni-admin'"
+              "-var 'assume_role_arn=arn:aws:iam::289574460446:role/atlantis-gyanni-admin'"
             ]
     apply:
       steps:
@@ -344,12 +344,12 @@ workflows:
       steps:
         - init:
             extra_args: [
-              '-backend-config="role_arn=arn:aws:iam::066346343248:role/atlantis-zerone-id-admin"',
+              '-backend-config="role_arn=arn:aws:iam::289574460446:role/atlantis-gyanni-admin"',
               '-upgrade=false'
             ]
         - plan:
             extra_args: [
-              "-var 'assume_role_arn=arn:aws:iam::066346343248:role/atlantis-zerone-id-admin'"
+              "-var 'assume_role_arn=arn:aws:iam::289574460446:role/atlantis-gyanni-admin'"
             ]
     apply:
       steps:
