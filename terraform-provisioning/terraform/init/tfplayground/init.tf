@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "tfstate" {
-  bucket = "zerone-id-apnortheast2-tfstate"
+  bucket = "tfplayground-apnortheast2-tfstate"
 }
 
 resource "aws_s3_bucket_versioning" "versioning" {
@@ -13,8 +13,8 @@ resource "aws_s3_bucket_versioning" "versioning" {
   }
 }
 
-resource "aws_dynamodb_table" "terraform_state_lock" {
-  name         = "terraform-lock"
+resource "aws_dynamodb_table" "terraform_state_lock_table" {
+  name         = "terraform-lock-table"
   hash_key     = "LockID"
   billing_mode = "PAY_PER_REQUEST"
 
