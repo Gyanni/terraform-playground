@@ -71,7 +71,7 @@ provider "aws" {
 When commenting use a hash "#" and a space in front of the comment.
 
 ```
-# Create ELK IAM Role!
+# Create ELK IAM Role
 ...
 ```
 
