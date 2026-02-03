@@ -1,5 +1,14 @@
+variable "assume_role_arn" {
+  description = "The role to assume when accessing the AWS API."
+  default     = ""
+}
+
 provider "aws" {
   region = "ap-northeast-2"
+
+  assume_role {
+    role_arn = var.assume_role_arn
+  }
 }
 
 resource "aws_s3_bucket" "tfstate" {
