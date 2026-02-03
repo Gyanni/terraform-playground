@@ -182,7 +182,7 @@ projects:
     workflow: id
 
   - name: s3/gyanni
-    dir: terraform/s3/gyanni
+    dir: terraform-provisioning/terraform/s3/gyanni
     workspace: default
     terraform_version: 1.7.0
     autoplan:
