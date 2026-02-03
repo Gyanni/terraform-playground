@@ -320,23 +320,23 @@ projects:
 #     workflow: sumologic
 
 # #### Workflows #####
-# workflows:
-#   # id
-#   id:
-#     plan:
-#       steps:
-#         - init:
-#             extra_args: [
-#               '-backend-config=role_arn=arn:aws:iam::289574460446:role/atlantis-gyanni-admin',
-#               '-upgrade=false'
-#             ]
-#         - plan:
-#             extra_args: [
-#               "-var 'assume_role_arn=arn:aws:iam::289574460446:role/atlantis-gyanni-admin'"
-#             ]
-#     apply:
-#       steps:
-#         - apply
+workflows:
+  # id
+  id:
+    plan:
+      steps:
+        - init:
+            extra_args: [
+              '-backend-config=role_arn=arn:aws:iam::289574460446:role/atlantis-gyanni-admin',
+              '-upgrade=false'
+            ]
+        - plan:
+            extra_args: [
+              "-var 'assume_role_arn=arn:aws:iam::289574460446:role/atlantis-gyanni-admin'"
+            ]
+    apply:
+      steps:
+        - apply
 
 #   # github
 #   github:
@@ -383,6 +383,6 @@ projects:
 #             extra_args: [
 #               "-var 'assume_role_arn=arn:aws:iam::289574460446:role/atlantis-gyanni-admin'"
 #             ]
-#     apply:
-#       steps:
-#         - apply
+    # apply:
+    #   steps:
+    #     - apply
