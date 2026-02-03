@@ -1,12 +1,12 @@
-resource "aws_ecr_repository" "tfplayground" {
-  name = "tfplayground"
+resource "aws_ecr_repository" "sample" {
+  name = "sample"
   image_scanning_configuration {
     scan_on_push = true
   }
   image_tag_mutability = "IMMUTABLE"
 }
-resource "aws_ecr_repository_policy" "tfplayground" {
-  repository = aws_ecr_repository.tfplayground.name
+resource "aws_ecr_repository_policy" "sample" {
+  repository = aws_ecr_repository.sample.name
   policy = jsonencode({
     "Version" : "2008-10-17",
     "Statement" : [

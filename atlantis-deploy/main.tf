@@ -6,8 +6,8 @@ locals {
 
   # Atlantis
   atlantis_image = var.atlantis_image == "" ? "runatlantis/atlantis:${var.atlantis_version}" : var.atlantis_image
-  atlantis_url = "http://${coalesce(
-    # element(concat(aws_route53_record.atlantis.*.fqdn, [""]), 0),
+  atlantis_url = "https://${coalesce(
+    element(concat(aws_route53_record.atlantis.*.fqdn, [""]), 0),
     module.alb.dns_name,
     "_"
   )}"
@@ -116,7 +116,6 @@ resource "aws_ssm_parameter" "webhook" {
   name  = var.webhook_ssm_parameter_name
   type  = "SecureString"
   value = random_id.webhook.hex
-  overwrite = true
 }
 
 resource "aws_ssm_parameter" "atlantis_github_user_token" {
@@ -125,7 +124,6 @@ resource "aws_ssm_parameter" "atlantis_github_user_token" {
   name  = var.atlantis_github_user_token_ssm_parameter_name
   type  = "SecureString"
   value = var.atlantis_github_user_token
-  overwrite = true
 }
 
 resource "aws_ssm_parameter" "atlantis_gitlab_user_token" {
@@ -177,7 +175,7 @@ module "alb" {
 
   vpc_id          = local.vpc_id
   subnets         = local.public_subnet_ids
-  security_groups = flatten([module.alb_http_sg.security_group_id, var.security_group_ids])
+  security_groups = flatten([module.alb_https_sg.security_group_id, module.alb_http_sg.security_group_id, var.security_group_ids])
 
   access_logs = {
     bucket  = var.alb_log_bucket_name
@@ -187,22 +185,22 @@ module "alb" {
 
   listeners = [
     {
-      port            = 80
-      protocol = "HTTP"
-      # certificate_arn = var.certificate_arn == "" ? module.acm.acm_certificate_arn : var.certificate_arn
+      port            = 443
+      protocol = "HTTPS"
+      certificate_arn = var.certificate_arn == "" ? module.acm.acm_certificate_arn : var.certificate_arn
       forward = {
         target_group_key = "target"
       }
     },
-    # {
-    #   port     = 80
-    #   protocol = "HTTP"
-    #   redirect = {
-    #     port        = "443"
-    #     protocol    = "HTTPS"
-    #     status_code = "HTTP_301"
-    #   }
-    # },
+    {
+      port     = 80
+      protocol = "HTTP"
+      redirect = {
+        port        = "443"
+        protocol    = "HTTPS"
+        status_code = "HTTP_301"
+      }
+    },
   ]
 
   target_groups = {
@@ -222,18 +220,18 @@ module "alb" {
 ###################
 # Security groups
 ###################
-# module "alb_https_sg" {
-#   source  = "terraform-aws-modules/security-group/aws//modules/https-443"
-#   version = "v5.1.2"
+module "alb_https_sg" {
+  source  = "terraform-aws-modules/security-group/aws//modules/https-443"
+  version = "v5.1.2"
 
-#   name        = "${var.name}-alb-https"
-#   vpc_id      = local.vpc_id
-#   description = "Security group with HTTPS ports open for specific IPv4 CIDR block (or everybody), egress ports are all world open"
+  name        = "${var.name}-alb-https"
+  vpc_id      = local.vpc_id
+  description = "Security group with HTTPS ports open for specific IPv4 CIDR block (or everybody), egress ports are all world open"
 
-#   ingress_cidr_blocks = var.alb_ingress_cidr_blocks
+  ingress_cidr_blocks = var.alb_ingress_cidr_blocks
 
-#   tags = local.tags
-# }
+  tags = local.tags
+}
 
 module "alb_http_sg" {
   source  = "terraform-aws-modules/security-group/aws//modules/http-80"
@@ -262,7 +260,7 @@ module "atlantis_sg" {
       to_port                  = var.atlantis_port
       protocol                 = "tcp"
       description              = "Atlantis"
-      source_security_group_id = module.alb_http_sg.security_group_id
+      source_security_group_id = module.alb_https_sg.security_group_id
     },
   ]
 
@@ -276,35 +274,35 @@ module "atlantis_sg" {
 ###################
 # ACM (SSL certificate)
 ###################
-# module "acm" {
-#   source  = "terraform-aws-modules/acm/aws"
-#   version = "v5.1.0"
+module "acm" {
+  source  = "terraform-aws-modules/acm/aws"
+  version = "v5.1.0"
 
-#   create_certificate = var.certificate_arn == ""
+  create_certificate = var.certificate_arn == ""
 
-#   domain_name = var.acm_certificate_domain_name == "" ? join(".", [var.name, var.route53_zone_name]) : var.acm_certificate_domain_name
+  domain_name = var.acm_certificate_domain_name == "" ? join(".", [var.name, var.route53_zone_name]) : var.acm_certificate_domain_name
 
-#   validation_method = "DNS"
+  validation_method = "DNS"
 
-#   # zone_id = var.certificate_arn == "" ? element(concat(data.aws_route53_zone.this.*.id, [""]), 0) : ""
-#   zone_id = var.route53_zone_id
-#   tags    = local.tags
-# }
+  # zone_id = var.certificate_arn == "" ? element(concat(data.aws_route53_zone.this.*.id, [""]), 0) : ""
+  zone_id = var.route53_zone_id
+  tags    = local.tags
+}
 
 ###################
 # Route53 record
 ###################
-# resource "aws_route53_record" "atlantis" {
-#   zone_id = var.route53_zone_id
-#   name    = var.name
-#   type    = "A"
+resource "aws_route53_record" "atlantis" {
+  zone_id = var.route53_zone_id
+  name    = var.name
+  type    = "A"
 
-#   alias {
-#     name                   = module.alb.dns_name
-#     zone_id                = module.alb.zone_id
-#     evaluate_target_health = true
-#   }
-# }
+  alias {
+    name                   = module.alb.dns_name
+    zone_id                = module.alb.zone_id
+    evaluate_target_health = true
+  }
+}
 
 ###################
 # ECS

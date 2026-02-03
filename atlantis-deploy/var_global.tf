@@ -17,7 +17,7 @@ variable "atlantis_user" {
 # Add all account ID to here 
 variable "account_id" {
   default = {
-    id   = "289574460446"
+    id   = "<Your-account-id>"
   }
 }
 
