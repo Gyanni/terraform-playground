@@ -7,6 +7,7 @@ resource "aws_s3_bucket_ownership_controls" "tpgdapne2_vpcflow_log_ownership" {
     object_ownership = "BucketOwnerPreferred"
   }
 }
+
 resource "aws_s3_bucket_acl" "tpgdapne2_vpcflow_log_bucket_acl" {
   depends_on = [aws_s3_bucket_ownership_controls.tpgdapne2_vpcflow_log_ownership]
   bucket     = aws_s3_bucket.tpgdapne2_vpcflow_log.id

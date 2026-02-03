@@ -45,6 +45,7 @@ data "aws_iam_policy_document" "tpg-sample_deploymentbucket_policy_document" {
   }
 }
 
+
 resource "aws_s3_bucket_lifecycle_configuration" "tpg-sample_deployment_lifecycle_configuration" {
   bucket = aws_s3_bucket.tpg-sample_deployment.id
 
