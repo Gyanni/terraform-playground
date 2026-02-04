@@ -88,8 +88,8 @@ projects:
     apply_requirements: []
     workflow: id   
 
-  - name: securitygroup/zerone-id/tmcd_apnortheast2
-    dir: terraform/securitygroup/zerone-id/tmcd_apnortheast2
+  - name: securitygroup/zerone-id/tpgd_apnortheast2
+    dir: terraform-provisioning/terraform/securitygroup/gyanni/tpgd_apnortheast2
     workspace: default
     terraform_version: 1.7.0
     autoplan:
@@ -102,7 +102,7 @@ projects:
     workflow: id       
 
   - name: codebuild/gyanni/tpgd_apnortheast2
-    dir: terraform/codebuild/zerone-id/tmcd_apnortheast2
+    dir: terraform-provisioning/terraform/codebuild/gyanni/tpgd_apnortheast2
     workspace: default
     terraform_version: 1.7.0
     autoplan:
