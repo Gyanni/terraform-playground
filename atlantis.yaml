@@ -27,7 +27,7 @@ projects:
     workflow: id
 
   - name: vpc/testd_apnortheast2
-    dir: terraform/vpc/testd_apnortheast2
+    dir: terraform-provisioning/terraform/vpc/testd_apnortheast2
     workspace: default
     terraform_version: 1.5.7
     autoplan:
@@ -39,8 +39,8 @@ projects:
     apply_requirements: []
     workflow: id
 
-  - name: iam/zerone-id
-    dir: terraform/iam/zerone-id
+  - name: iam/gyanni
+    dir: terraform-provisioning/terraform/iam/gyanni
     workspace: default
     terraform_version: 1.7.0
     autoplan:
@@ -51,8 +51,8 @@ projects:
     apply_requirements: []
     workflow: id    
 
-  - name: kms/zerone-id/ap-northeast-2
-    dir: terraform/kms/zerone-id/ap-northeast-2
+  - name: kms/gyanni/ap-northeast-2
+    dir: terraform-provisioning/terraform/kms/gyanni/ap-northeast-2
     workspace: default
     terraform_version: 1.7.0
     autoplan:
@@ -101,7 +101,7 @@ projects:
     apply_requirements: []
     workflow: id       
 
-  - name: codebuild/zerone-id/tmcd_apnortheast2
+  - name: codebuild/gyanni/tpgd_apnortheast2
     dir: terraform/codebuild/zerone-id/tmcd_apnortheast2
     workspace: default
     terraform_version: 1.7.0
