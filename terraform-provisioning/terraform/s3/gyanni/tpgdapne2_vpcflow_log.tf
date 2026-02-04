@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "tpgdapne2_vpcflow_log" {
-  bucket = "tmcdapne2-vpcflow-log"
+  bucket = "tpgdapne2-vpcflow-log"
 }
 resource "aws_s3_bucket_ownership_controls" "tpgdapne2_vpcflow_log_ownership" {
   bucket = aws_s3_bucket.tpgdapne2_vpcflow_log.id
