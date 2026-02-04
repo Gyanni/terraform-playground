@@ -14,7 +14,7 @@ projects:
     workflow: id
 
   - name: vpc/tpgd_apnortheast2
-    dir: terraform/vpc/tpgd_apnortheast2
+    dir: terraform-provisioning/terraform/vpc/tpgd_apnortheast2
     workspace: default
     terraform_version: 1.7.0
     autoplan:

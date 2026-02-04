@@ -1,6 +1,7 @@
 terraform {
   required_version = ">= 1.0.0"
 
+
   backend "s3" {
     bucket         = "tfplayground-apnortheast2-tfstate"
     key            = "provisioning/terraform/vpc/tpgd_apnortheast2/terraform.tfstate"

@@ -5,6 +5,7 @@ resource "random_string" "suffix" {
   upper   = false
 }
 
+
 locals {
   vpc_name         = replace("${var.product}${var.env_suffix}_${var.aws_region}", "-", "")
   shard_id         = var.shard_id
