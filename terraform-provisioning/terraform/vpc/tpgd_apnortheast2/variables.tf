@@ -6,6 +6,7 @@ variable "cidr_numeral" {
   description = "The VPC CIDR numeral (10.x.0.0/16)"
 }
 
+
 variable "aws_short_region" {
   default = "apne2"
 }

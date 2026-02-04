@@ -11,6 +11,7 @@ resource "aws_route" "private_nat" {
   nat_gateway_id         = aws_nat_gateway.nat[count.index].id
 }
 
+
 resource "aws_route" "private_peering" {
   for_each                  = { for entry in local.private_subnet_peerings : "${entry.vpc_name}_${entry.route_table_id}" => entry }
   route_table_id            = each.value.route_table_id

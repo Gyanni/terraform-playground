@@ -19,6 +19,7 @@ resource "aws_vpc_peering_connection_accepter" "peering_accepter" {
   tags = {
     Name = "vpc-peering-${var.shard_id}-with-${each.value.vpc_name}"
   }
+  
 
   lifecycle {
     ignore_changes = [tags]
