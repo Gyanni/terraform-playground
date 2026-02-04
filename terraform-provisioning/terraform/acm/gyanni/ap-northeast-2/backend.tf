@@ -2,7 +2,7 @@ terraform {
   required_version = ">= 1.0.0"
 
   backend "s3" {
-    bucket         = "gyanni-apnortheast2-tfstate"
+    bucket         = "tfplayground-apnortheast2-tfstate"
     key            = "provisioning/terraform/acm/gyanni/ap-northeast-2/terraform.tfstate"
     region         = "ap-northeast-2"
     encrypt        = true
