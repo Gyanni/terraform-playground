@@ -1,0 +1,1 @@
+assume_role_arn = "arn:aws:iam::289574460446:role/assume-id-admin"
