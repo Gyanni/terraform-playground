@@ -115,8 +115,8 @@ projects:
     apply_requirements: []
     workflow: id     
 
-  - name: acm/zerone-id/ap-northeast-2
-    dir: terraform/acm/zerone-id/ap-northeast-2
+  - name: acm/gyanni/ap-northeast-2
+    dir: terraform-provisioning/terraform/acm/gyanni/ap-northeast-2
     workspace: default
     terraform_version: 1.7.0
     autoplan:
