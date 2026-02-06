@@ -1,4 +1,4 @@
-module "star_terraform_devart_tv" {
+module "cine_catch_com" {
   source = "../_modules/acm"
 
   domain_name = "cine-catch.com"
